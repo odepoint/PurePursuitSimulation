@@ -19,7 +19,7 @@ for i in range (1, len(rows)):
     cleanedPoints.append([])
 
     for j in range (0, len(rows[i])-1):
-        cleanedPoints[i-1].append(float(rows[i][j]))# = (float(rows[i][j]))
+        cleanedPoints[i-1].append(float(rows[i][j]))
 
 
 print(cleanedPoints)
