@@ -7,29 +7,28 @@
 #include "../include/simulation.h"
 #include "../include/pathUpdate.h"
 
-
 int main()
 {
 
     std::ofstream txtFile;
-    
+
 
     int runs = 0;
     while (true) {
-        
+
         std::string fileName;
 
         while(true){
             std::cout << "Enter the name of the file: ";
             std::getline(std::cin, fileName);
             fileName+=".csv";
-            if(std::__fs::filesystem::exists(fileName)){
+            if(std::filesystem::exists(fileName)){
 
                 std::cout << "File already exists\n (o)verride or (r)ename: ";
-                std::string fileFix;
+                std::string fileFix; // TODO all of these input yoinks are sus
                 std::getline(std::cin, fileFix);
                 if(fileFix == "o"){
-                    std::__fs::filesystem::remove(fileName);
+                    std::filesystem::remove(fileName);
                     break;
                 }
                 else
@@ -37,12 +36,12 @@ int main()
             }
 
             break;
-            
+
         }
 
         std::cout << "How many points would you like? ";
-        runs += 1;
-        int response;
+        runs++;
+        int response; // TODO this sucks and will break program but i dont care enough to fix it right now
         std::cin >> response;
 
         std::vector<Point> originalPoints = generatePoints(response);

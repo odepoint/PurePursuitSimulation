@@ -1,15 +1,15 @@
 #include "../include/pointCreation.h"
 
-std::vector<Point> smoother(std::vector<Point> path, double weight_data, double weight_smooth, double tolerance)
+std::vector<Point> smoother(const std::vector<Point> &path, double weight_data, double weight_smooth, double tolerance)
 {
 
     std::vector<std::vector<double>> newPath;
     std::vector<std::vector<double>> incomingPath;
 
-    for (int i = 0; i < path.size(); ++i)
+    for (auto & i : path)
     {
 
-        std::vector<double> point = { path[i].x, path[i].y };
+        std::vector<double> point = { i.x, i.y };
 
         newPath.push_back(point);
         incomingPath.push_back(point);
@@ -32,10 +32,10 @@ std::vector<Point> smoother(std::vector<Point> path, double weight_data, double 
 
     std::vector<Point> transformed;
 
-    for (int i = 0; i < newPath.size(); i++)
+    for (auto & i : newPath)
     {
 
-        Point newPoint(newPath[i][0], newPath[i][1]);
+        Point newPoint(i[0], i[1]);
         transformed.push_back(newPoint);
     }
 

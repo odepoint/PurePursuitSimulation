@@ -5,7 +5,7 @@
 
 
 
-std::vector<Point> smoother(std::vector<Point> path, double weight_data, double weight_smooth, double tolerance);
+std::vector<Point> smoother(const std::vector<Point>& path, double weight_data, double weight_smooth, double tolerance);
 std::vector<Point> addPoints(std::vector<Point> originalPoints);
 
 
