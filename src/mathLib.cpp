@@ -12,3 +12,9 @@ double dotProduct(Point a, Point b)
 
     return (a.x * b.x + a.y * b.y);
 }
+
+static double radians(double degrees)
+{
+    return degrees * M_PI / 180;
+}
+
