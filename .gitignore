@@ -3,3 +3,4 @@ main.exe
 .idea
 cmake-build-debug
 venv
+kivyTest.py
