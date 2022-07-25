@@ -11,8 +11,7 @@ struct Robot : Point
     double rightVelocity;
     double heading;
 
-    Robot(){
-    }
+    Robot()= default;
 
     Robot(double inputX, double inputY, double inputHeading = 0, double inputLeftVelocity = 0, double inputRightVelocity = 0) : Point(inputX, inputY)
     {
@@ -35,7 +34,6 @@ struct Robot : Point
         std::cin >> y;
         this->y = y;
         std::cout << "Global heading (in degrees): ";
-        double heading;
         std::cin >> heading;
         heading *= M_PI / 180;
         this->heading = heading;

@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import csv
-file = open ('test.csv')
+
+file = open('test.csv') # TODO dont leave it like this
 
 type(file)
 
@@ -12,14 +13,12 @@ for row in csvreader:
 
 file.close()
 
-
 cleanedPoints = []
 
-for i in range (1, len(rows)):
+for i in range(1, len(rows)):
     cleanedPoints.append([])
 
-    for j in range (0, len(rows[i])-1):
-        cleanedPoints[i-1].append(float(rows[i][j]))
-
+    for j in range(0, len(rows[i]) - 1):
+        cleanedPoints[i - 1].append(float(rows[i][j]))
 
 print(cleanedPoints)

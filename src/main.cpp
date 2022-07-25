@@ -41,10 +41,10 @@ int main()
 
         std::cout << "How many points would you like? ";
         runs++;
-        int response; // TODO this sucks and will break program but i dont care enough to fix it right now
-        std::cin >> response;
+        int pointsResponse; // TODO this sucks and will break program but i dont care enough to fix it right now
+        std::cin >> pointsResponse;
 
-        std::vector<Point> originalPoints = generatePoints(response);
+        std::vector<Point> originalPoints = generatePoints(pointsResponse);
 
         double b = requestCurvature();
         double a = 1 - b;
@@ -71,7 +71,7 @@ int main()
         {
             int closest = closestPoint(finalPoints, robotLocation, 0);
 
-            LookAhead lookAheadHelper = LookAhead(closest);
+            auto lookAheadHelper = LookAhead(closest);
             lookAheadHelper.update(finalPoints, robotLocation);
             double arcCurvature = curvatureOfArc(robotLocation, lookAheadHelper.getIntersectionPoint(), lookAheadHelper.getLookAheadDistance());
             std::pair<double, double> wheelVelocities = targetWheelVelocities(arcCurvature, finalPoints[closest].targetVelocity);
@@ -128,18 +128,17 @@ int main()
 
             std::cout << "Would you like to continue? y/n: ";
 
-            std::string response;
+            std::string continueResponse;
 
-            getline(std::cin, response);
+            getline(std::cin, continueResponse);
 
-            std::string shouldCont = shouldContinue(response);
+            std::string shouldCont = shouldContinue(continueResponse);
 
             if (shouldCont != "invalid") {
 
                 if (shouldCont == "continue"){
                     cont = true;
-                }
-                else{
+                } else {
                     cont = false;
                 }
 
