@@ -7,29 +7,27 @@
 #include "../include/simulation.h"
 #include "../include/pathUpdate.h"
 
-int main()
-{
+int main() {
 
     std::ofstream txtFile;
 
     while (true) {
 
-        std::string fileName; //TODO unusual dealloc potential pain point
+        std::string fileName; //TODO unusual dealloc potential pain point ??
 
-        while(true){
+        while (true) {
             std::cout << "Enter the name of the file: ";
             std::getline(std::cin, fileName);
-            fileName+=".csv";
-            if(std::filesystem::exists(fileName)){
+            fileName += ".csv";
+            if (std::filesystem::exists(fileName)) {
 
                 std::cout << "File already exists\n (o)verride or (r)ename: ";
                 std::string fileFix; // TODO all of these input yoinks are sus
                 std::getline(std::cin, fileFix);
-                if(fileFix == "o"){
+                if (fileFix == "o") {
                     std::filesystem::remove(fileName);
                     break;
-                }
-                else
+                } else
                     continue;
             }
 
@@ -62,16 +60,17 @@ int main()
 
         std::vector<Robot> robotPositions;
         txtFile.open(fileName, std::ofstream::app);
-        txtFile << "Time (ms), X (ft), Y (ft), \u03B8, \u00B0" << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << "," << robotLocation.heading << "," << (robotLocation.heading * 180)/M_PI;
+        txtFile << "Time (ms), X (ft), Y (ft), \u03B8, \u00B0" << "\n" << simTime << "," << robotLocation.x << ","
+                << robotLocation.y << "," << robotLocation.heading << "," << (robotLocation.heading * 180) / M_PI;
         txtFile.close();
 
-        while (true)
-        {
+        while (true) {
             int closest = closestPoint(finalPoints, robotLocation, 0);
 
             auto lookAheadHelper = LookAhead(closest);
             lookAheadHelper.update(finalPoints, robotLocation);
-            double arcCurvature = curvatureOfArc(robotLocation, lookAheadHelper.getIntersectionPoint(), lookAheadHelper.getLookAheadDistance());
+            double arcCurvature = curvatureOfArc(robotLocation, lookAheadHelper.getIntersectionPoint(),
+                                                 lookAheadHelper.getLookAheadDistance());
             auto wheelVelocities = targetWheelVelocities(arcCurvature, finalPoints[closest].targetVelocity);
 
             robotLocation = computeMovement(wheelVelocities.first, wheelVelocities.second, robotLocation, dT);
@@ -79,14 +78,12 @@ int main()
 
             simTime += dT;
 
-            if (simTime % 300 == 0)
-            {
+            if (simTime % 300 == 0) {
 
                 double printedHeading = (robotLocation.heading * 180) / M_PI;
 
                 if (fabs(printedHeading) > 360)
                     printedHeading /= 360;
-
 
 
                 std::cout << "Time: " << simTime << std::endl;
@@ -95,69 +92,25 @@ int main()
                 std::cout << "Heading: " << printedHeading << std::endl;
 
                 txtFile.open(fileName, std::ofstream::app);
-                txtFile << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << "," << robotLocation.heading << "," << printedHeading;
+                txtFile << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << ","
+                        << robotLocation.heading << "," << printedHeading;
                 txtFile.close();
-
-
 
 
             }
 
-            if ((fabs(robotLocation.leftVelocity) < 0.1 && fabs(robotLocation.rightVelocity) < 0.01) || ((closest > finalPoints.size() - 5) && simTime >= 30000))
-            {
-
+            if ((fabs(robotLocation.leftVelocity) < 0.1 && fabs(robotLocation.rightVelocity) < 0.1) ||
+                ((closest > finalPoints.size() - 5) && simTime >= 30000)) {
                 std::cout << "Path complete" << std::endl;
                 break;
             }
         }
 
-
-
-        bool cont;
-
-        bool waitingOnInput = true;
-
-        std::cin.ignore();
-
-        while (waitingOnInput) {
-
-            std::cout << "Would you like to continue? y/n: ";
-
-            std::string continueResponse;
-
-            getline(std::cin, continueResponse);
-
-            std::string shouldCont = shouldContinue(continueResponse);
-
-            if (shouldCont != "invalid") {
-
-                if (shouldCont == "continue"){
-                    cont = true;
-                } else {
-                    cont = false;
-                }
-
-
-                waitingOnInput = false;
-
-
-            }
-
-
-        }
-
-
-        if (cont)
+        if (getContinueResponse()) { // grab user input and repeat execution if desired
             continue;
-        else {
-            return 0;
         }
-
-
+        break; // break if repeat is not desired and terminate execution
 
     }
 
-
-
-
-
+}

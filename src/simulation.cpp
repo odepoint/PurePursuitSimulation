@@ -53,7 +53,6 @@ double requestCurvature()
 
 Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt)
 {
-
     double x = currentPos.x;
     double y = currentPos.y;
     double theta = currentPos.heading;
@@ -77,7 +76,9 @@ Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt)
 }
 
 //todo this is scuffed
-
+/// determine continue true or false by parsing user input, also handle invalid input recursively
+/// \param response string value - our user input
+/// \return boolean shouldContinue
 bool shouldContinue(const std::string& response) {
 
     if (response != "y") {
@@ -105,5 +106,21 @@ bool shouldContinue(const std::string& response) {
         return true;
 
     }
+
+}
+//todo clean up godawful string parse
+/// get user input and pass it to the shouldContinue function to generate shouldContinue boolean
+/// \return boolean from shouldContinue(string& userInput, as captured in getCont.Response)
+bool getContinueResponse() {
+
+    std::cin.ignore();
+
+    std::cout << "Would you like to continue? y/n: ";
+
+    std::string userInput;
+
+    getline(std::cin, userInput);
+
+    return shouldContinue(userInput);
 
 }

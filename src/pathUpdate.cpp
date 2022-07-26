@@ -97,10 +97,6 @@ int closestPoint(std::vector<Point>& path, Robot robotLocation, int previousClos
     return indexClosest;
 }
 
-
-
-
-
 double curvatureOfArc(Robot robotLocation, Point lookAheadPoint, double lookAheadDistance)
 {
     double a = -tan(robotLocation.heading);
