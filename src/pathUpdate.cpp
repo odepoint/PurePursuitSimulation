@@ -120,7 +120,7 @@ double curvatureOfArc(Robot robotLocation, Point lookAheadPoint, double lookAhea
 }
 
 double wheelVelocity(double curvature, double targetVelocity, double trackWidth) {
-    return targetVelocity * (2 + curvature * trackWidth / 2);
+    return targetVelocity * (2 + curvature * trackWidth) / 2;
 }
 
 std::pair<double, double> targetWheelVelocities(double curvature, double targetVelocity)
@@ -130,4 +130,6 @@ std::pair<double, double> targetWheelVelocities(double curvature, double targetV
     return {wheelVelocity(curvature, targetVelocity, trackWidth), \
     wheelVelocity(curvature, targetVelocity, trackWidth)};
 }
+
+
 
