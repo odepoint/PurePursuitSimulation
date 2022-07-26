@@ -86,7 +86,7 @@ bool shouldContinue(const std::string& response) {
             
             std::cout << "\nInput of '" << "n" << "' received" << std::endl;
             std::cout << "Exiting program ..." << std::endl;
-            return "exit";
+            return false;
 
         }
 

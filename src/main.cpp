@@ -12,11 +12,9 @@ int main()
 
     std::ofstream txtFile;
 
-
-    int runs = 0;
     while (true) {
 
-        std::string fileName;
+        std::string fileName; //TODO unusual dealloc potential pain point
 
         while(true){
             std::cout << "Enter the name of the file: ";
@@ -40,11 +38,11 @@ int main()
         }
 
         std::cout << "How many points would you like? ";
-        runs++;
         int pointsResponse; // TODO this sucks and will break program but i dont care enough to fix it right now
         std::cin >> pointsResponse;
 
-        std::vector<Point> originalPoints = generatePoints(pointsResponse);
+        std::vector<Point> originalPoints;
+        originalPoints = generatePoints(pointsResponse);
 
         double b = requestCurvature();
         double a = 1 - b;
@@ -74,10 +72,7 @@ int main()
             auto lookAheadHelper = LookAhead(closest);
             lookAheadHelper.update(finalPoints, robotLocation);
             double arcCurvature = curvatureOfArc(robotLocation, lookAheadHelper.getIntersectionPoint(), lookAheadHelper.getLookAheadDistance());
-            std::pair<double, double> wheelVelocities = targetWheelVelocities(arcCurvature, finalPoints[closest].targetVelocity);
-
-            std::vector<double> robotXs = { robotLocation.x };
-            std::vector<double> robotYs = { robotLocation.y };
+            auto wheelVelocities = targetWheelVelocities(arcCurvature, finalPoints[closest].targetVelocity);
 
             robotLocation = computeMovement(wheelVelocities.first, wheelVelocities.second, robotLocation, dT);
             robotPositions.push_back(robotLocation);
@@ -165,4 +160,4 @@ int main()
 
 
 
-}
+

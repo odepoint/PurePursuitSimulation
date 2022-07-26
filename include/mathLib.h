@@ -11,4 +11,7 @@ double dotProduct(Point a, Point b);
 
 static double radians(double degrees);
 
+static double radians(double degrees);
+
+
 #endif

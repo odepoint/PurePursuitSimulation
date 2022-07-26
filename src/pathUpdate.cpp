@@ -1,5 +1,5 @@
 #include "../include/pathUpdate.h"
-
+#include <cfloat>
 void updateDistance(std::vector<Point>& path)
 
 {
@@ -56,12 +56,12 @@ void updateVelocity(std::vector<Point>& path, double pathMaxVelocity, double tur
     //inches per second squared
     double maxAcceleration = pathMaxVelocity * 2;
 
-    for (int i = 0; i < path.size(); i++)
+    for (auto & i : path)
     {
-        if (path[i].curvature == 0)
-            path[i].maxVelocity = pathMaxVelocity;
+        if (i.curvature == 0)
+            i.maxVelocity = pathMaxVelocity;
         else
-            path[i].maxVelocity = std::min(pathMaxVelocity, turnSpeed / path[i].curvature);
+            i.maxVelocity = std::min(pathMaxVelocity, turnSpeed / i.curvature);
     }
 
     path.back().targetVelocity = 0;
@@ -79,7 +79,7 @@ void updateVelocity(std::vector<Point>& path, double pathMaxVelocity, double tur
 int closestPoint(std::vector<Point>& path, Robot robotLocation, int previousClosestIndex)
 {
 
-    double smallestValue = 9999999999;
+    auto smallestValue = DBL_MAX;
     Point robotPoint(robotLocation.x, robotLocation.y);
     int indexClosest = path.size() - 1;
 
