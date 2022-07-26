@@ -9,7 +9,7 @@
 std::vector<Point> generatePoints(int points);
 double requestCurvature();
 Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt);
-std::string shouldContinue(std::string response);
+bool shouldContinue(const std::string& response);
 
 
 #endif

@@ -18,4 +18,4 @@ add_executable(simulationexecutable
         src/mathLib.cpp
         src/pathUpdate.cpp
         src/pointCreation.cpp
-        src/simulation.cpp)
+        src/simulation.cpp include/stringOperations.h)

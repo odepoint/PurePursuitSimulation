@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include "mathLib.h"
+
 struct Robot : Point
 {
 
@@ -19,9 +20,19 @@ struct Robot : Point
         rightVelocity = inputRightVelocity;
         heading = inputHeading;
     }
+/*
+    /// setRobotPosition: setter for robot's position values
+    /// \param coordinates array of two items, [0] = x, [1] = y
+    /// \param globalHeading degrees
+    void setRobotPosition(const double coordinates[2], double globalHeading)
+    {
+        this->x = coordinates[0]; this->y = coordinates[1];
 
+        this->heading = toRadians(globalHeading); // set heading to radian of passed deg heading
+    }
 
-    
+}; */
+
     void setRobotPosition()
     {
         std::cout << "Enter Robot Information" << std::endl;

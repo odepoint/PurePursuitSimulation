@@ -14,7 +14,6 @@ struct Point
 
     Point(double inputX = 0, double inputY = 0)
     {
-
         x = inputX;
         y = inputY;
     }
@@ -31,7 +30,7 @@ struct Point
     }
 
     
-    Point pointDiff(Point endPoint)
+    Point pointDiff(Point endPoint) const
     {
 
         double diffX = endPoint.x - x;

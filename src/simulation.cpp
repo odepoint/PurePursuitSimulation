@@ -21,7 +21,7 @@ std::vector<Point> generatePoints(int points)
 
         std::cin >> yVal;
 
-        originalPoints.push_back(Point(xVal, yVal));
+        originalPoints.emplace_back(xVal, yVal);
     }
 
     std::cout << "Points added successfully" << std::endl;
@@ -76,30 +76,13 @@ Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt)
     return newPos;
 }
 
+//todo this is scuffed
 
-std::string shouldContinue(std::string response) {
+bool shouldContinue(const std::string& response) {
 
+    if (response != "y") {
 
-    std::string lowerCaseResponse;
-
-    for (int i = 0; i < response.length(); i++) {
-
-        if(response[i] != ' '){
-
-            char lower = response.at(i);
-            lower = (tolower(lower));
-            lowerCaseResponse += lower;
-
-        }
-
-    }
-
-
-
-    if (lowerCaseResponse != "y" && lowerCaseResponse != "yes" && lowerCaseResponse != "yeah") {
-
-        if (lowerCaseResponse == "n" || lowerCaseResponse == "no" || lowerCaseResponse == "nope") {
-            
+        if (response == "n") { //todo handler positive response
             
             std::cout << "\nInput of '" << "n" << "' received" << std::endl;
             std::cout << "Exiting program ..." << std::endl;
@@ -110,26 +93,17 @@ std::string shouldContinue(std::string response) {
         else {
 
             std::cout << "Invalid input" << std::endl;
-            return "invalid";
+            return shouldContinue(response);
+
         }
     }
 
 
     else {
 
-
         std::cout << "\nInput of '" << "y" << "' received" << std::endl;
-        return "continue";
+        return true;
 
     }
-
-
-
-
-
-
-
-
-
 
 }
