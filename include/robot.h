@@ -20,36 +20,36 @@ struct Robot : Point
         rightVelocity = inputRightVelocity;
         heading = inputHeading;
     }
-/*
-    /// setRobotPosition: setter for robot's position values
+
+    /// setRobotPosition: setter for robot's position values, initial coordinates and heading
     /// \param coordinates array of two items, [0] = x, [1] = y
     /// \param globalHeading degrees
-    void setRobotPosition(const double coordinates[2], double globalHeading)
+    void setRobotPosition(const std::pair<double, double> coordinates, double globalHeading)
     {
-        this->x = coordinates[0]; this->y = coordinates[1];
+        this->x = coordinates.first;
+        this->y = coordinates.second;
 
         this->heading = toRadians(globalHeading); // set heading to radian of passed deg heading
     }
 
-}; */
+    //todo stop casting user input to number types
+    void consoleSetRobotPositionDebug() {
+        double x, y, degrees;
 
-    void setRobotPosition()
-    {
-        std::cout << "Enter Robot Information" << std::endl;
+        std::cout << "Enter Robot Position" << std::endl;
+
         std::cout << "X: ";
-        double x;
         std::cin >> x;
-        this->x = x;
+
         std::cout << "Y: ";
-        double y;
         std::cin >> y;
-        this->y = y;
-        std::cout << "Global heading (in degrees): ";
-        std::cin >> heading;
-        heading *= M_PI / 180;
-        this->heading = heading;
-    
+
+        std::cout << "Global heading (degrees, float): ";
+        std::cin >> degrees;
+
+        setRobotPosition({x,y}, degrees);
     }
+
 };
 
 #endif

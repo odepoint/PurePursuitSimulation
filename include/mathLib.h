@@ -9,9 +9,6 @@ double distance_formula(Point pointNew, Point pointOld);
 
 double dotProduct(Point a, Point b);
 
-static double radians(double degrees);
-
-static double radians(double degrees);
-
+double toRadians(double degrees);
 
 #endif

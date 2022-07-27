@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "../include/mathLib.h"
 
 
@@ -12,13 +13,7 @@ double dotProduct(Point a, Point b)
     return (a.x * b.x + a.y * b.y);
 }
 
-static double toRadians(double degrees)
+double toRadians(double degrees)
 {
     return degrees * M_PI / 180;
 }
-
-static double radians(double degrees)
-{
-    return degrees * M_PI / 180;
-}
-

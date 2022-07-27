@@ -1,4 +1,3 @@
-#define _USE_MATH_DEFINES
 #include <fstream>
 #include <algorithm>
 #include <filesystem>
@@ -13,7 +12,7 @@ int main() {
 
     while (true) {
 
-        std::string fileName; //TODO unusual dealloc potential pain point ??
+        std::string fileName; //TODO unusual dealloc potential pain point ?? investigate
 
         while (true) {
             std::cout << "Enter the name of the file: ";
@@ -53,7 +52,7 @@ int main() {
         updateVelocity(finalPoints);
 
         Robot robotLocation;
-        robotLocation.setRobotPosition();
+        robotLocation.consoleSetRobotPositionDebug(); // TODO this sucks and will break program but i dont care enough to fix it right now
 
         int simTime = 0;
         int dT = 15; //ms
@@ -78,7 +77,7 @@ int main() {
 
             simTime += dT;
 
-            if (simTime % 300 == 0) {
+            if (simTime % 300 == 0) { //todo get this all out of main
 
                 double printedHeading = (robotLocation.heading * 180) / M_PI;
 
@@ -105,7 +104,7 @@ int main() {
                 break;
             }
         }
-
+        // todo make rest of main look like below code
         if (getContinueResponse()) { // grab user input and repeat execution if desired
             continue;
         }
