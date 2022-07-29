@@ -1,6 +1,6 @@
-#define _USE_MATH_DEFINES
 #include "../include/mathLib.h"
 
+// removed #define _USE_MATH_DEFINES because legacy feature
 
 double distance_formula(Point pointNew, Point pointOld)
 {
