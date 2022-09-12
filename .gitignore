@@ -4,3 +4,5 @@ main.exe
 cmake-build-debug
 venv
 kivyTest.py
+test2.csv
+test.csv
