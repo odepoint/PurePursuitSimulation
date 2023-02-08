@@ -1,5 +1,5 @@
 # PurePursuitSimulation
-A simulated visualization of the **Pure Pursuit** path following algorithm I implemented for the VEX Robotics competition while in highschool. Using a set lookahead distance, it constantly calculates the arc necessary to return to a pre-set path, based on points inputted accordingly after running the executable. Grab the latest release [here](https://github.com/odepoint/PurePursuitSimulation/releases).
+A simulated visualization of the **Pure Pursuit** path following algorithm I implemented for the VEX Robotics competition in 2021. Using a set lookahead distance, it constantly calculates the arc necessary to return to a pre-set path, based on points inputted accordingly after running the executable. Grab the latest release [here](https://github.com/odepoint/PurePursuitSimulation/releases).
 
 
 # General Recommendations
