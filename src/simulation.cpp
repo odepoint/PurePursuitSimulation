@@ -51,7 +51,7 @@ double requestCurvature()
     return curvatureValues[response - 1];
 }
 
-Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt)
+Robot computeMovement(double leftV, double rightV, Robot currentPos, double dt)
 {
 
     double x = currentPos.x;
@@ -69,9 +69,8 @@ Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt)
     newPos.x = (x + dc * cos(theta));
 
     newPos.heading = theta + changeInHeading;
-    RateLimiter rateLimiter(50);
-    newPos.leftVelocity = rateLimiter.limit(leftV, dt);
-    newPos.rightVelocity = rateLimiter.limit(rightV, dt);
+    newPos.leftVelocity = leftV;
+    newPos.rightVelocity = rightV;
 
     return newPos;
 }

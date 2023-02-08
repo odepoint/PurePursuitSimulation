@@ -8,7 +8,7 @@
 #include "rateLimiter.h"
 std::vector<Point> generatePoints(int points);
 double requestCurvature();
-Robot computeMovement(double leftV, double rightV, Robot currentPos, int dt);
+Robot computeMovement(double leftV, double rightV, Robot currentPos, double dt);
 std::string shouldContinue(std::string response);
 
 

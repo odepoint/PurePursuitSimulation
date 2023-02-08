@@ -25,7 +25,7 @@ int main()
             if(std::filesystem::exists(fileName)){
 
                 std::cout << "File already exists\n (o)verride or (r)ename: ";
-                std::string fileFix; // TODO all of these input yoinks are sus
+                std::string fileFix;
                 std::getline(std::cin, fileFix);
                 if(fileFix == "o"){
                     std::filesystem::remove(fileName);
@@ -41,7 +41,7 @@ int main()
 
         std::cout << "How many points would you like? ";
         runs++;
-        int pointsResponse; // TODO this sucks and will break program but i dont care enough to fix it right now
+        int pointsResponse;
         std::cin >> pointsResponse;
 
         std::vector<Point> originalPoints = generatePoints(pointsResponse);
@@ -59,22 +59,26 @@ int main()
         Robot robotLocation;
         robotLocation.setRobotPosition();
 
-        int simTime = 0;
-        int dT = 15; //ms
+        double simTime = 0;
+        double dT = 0.001; //ms
 
         std::vector<Robot> robotPositions;
         txtFile.open(fileName, std::ofstream::app);
         txtFile << "Time (ms), X (ft), Y (ft), \u03B8, \u00B0" << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << "," << robotLocation.heading << "," << (robotLocation.heading * 180)/M_PI;
         txtFile.close();
+        bool first = true;
+        RateLimiter rateLimiter(50);
 
         while (true)
         {
+
             int closest = closestPoint(finalPoints, robotLocation, 0);
 
             auto lookAheadHelper = LookAhead(closest);
             lookAheadHelper.update(finalPoints, robotLocation);
             double arcCurvature = curvatureOfArc(robotLocation, lookAheadHelper.getIntersectionPoint(), lookAheadHelper.getLookAheadDistance());
-            std::pair<double, double> wheelVelocities = targetWheelVelocities(arcCurvature, finalPoints[closest].targetVelocity);
+
+            std::pair<double, double> wheelVelocities = targetWheelVelocities(arcCurvature, rateLimiter.limit(finalPoints[closest].targetVelocity, dT));
 
             std::vector<double> robotXs = { robotLocation.x };
             std::vector<double> robotYs = { robotLocation.y };
@@ -82,9 +86,10 @@ int main()
             robotLocation = computeMovement(wheelVelocities.first, wheelVelocities.second, robotLocation, dT);
             robotPositions.push_back(robotLocation);
 
+            dT = 15;
             simTime += dT;
 
-            if (simTime % 300 == 0)
+            if ((int)simTime % 300 == 0)
             {
 
                 double printedHeading = (robotLocation.heading * 180) / M_PI;
@@ -94,10 +99,13 @@ int main()
 
 
 
-                std::cout << "Time: " << simTime << std::endl;
+                /*std::cout << "Time: " << simTime << std::endl;
                 std::cout << "X: " << robotLocation.x << std::endl;
                 std::cout << "Y: " << robotLocation.y << std::endl;
-                std::cout << "Heading: " << printedHeading << std::endl;
+                std::cout << "Heading: " << printedHeading << std::endl;*/
+
+                std::cout << robotLocation.leftVelocity << ": Left" << std::endl;
+                std::cout << robotLocation.rightVelocity << ": Right" << std::endl;
 
                 txtFile.open(fileName, std::ofstream::app);
                 txtFile << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << "," << robotLocation.heading << "," << printedHeading;
@@ -107,13 +115,16 @@ int main()
 
 
             }
+            if(!first) {
+                if ((fabs(robotLocation.leftVelocity + robotLocation.rightVelocity) < 1) ||
+                    (closest > finalPoints.size() - 5) || simTime > 300000) {
 
-            if ((fabs(robotLocation.leftVelocity) < 0.1 && fabs(robotLocation.rightVelocity) < 0.01) || ((closest > finalPoints.size() - 5) && simTime >= 30000))
-            {
 
-                std::cout << "Path complete" << std::endl;
-                break;
+                    std::cout << "Path complete" << std::endl;
+                    break;
+                }
             }
+            first = false;
         }
 
 
