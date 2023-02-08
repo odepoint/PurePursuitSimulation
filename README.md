@@ -23,4 +23,4 @@ and a rendering of it in real time
 
 # Thanks
 
-My friend [Liam](https://github.com/hpst3r) for bouncing ideas off with me, and refactoring the makefile to be multiplatform.
+My friend [Liam](https://github.com/hpst3r) for letting me bounce ideas off of him, and refactoring the makefile to be multiplatform.
