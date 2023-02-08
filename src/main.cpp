@@ -99,13 +99,10 @@ int main()
 
 
 
-                /*std::cout << "Time: " << simTime << std::endl;
+                std::cout << "Time: " << simTime << std::endl;
                 std::cout << "X: " << robotLocation.x << std::endl;
                 std::cout << "Y: " << robotLocation.y << std::endl;
-                std::cout << "Heading: " << printedHeading << std::endl;*/
-
-                std::cout << robotLocation.leftVelocity << ": Left" << std::endl;
-                std::cout << robotLocation.rightVelocity << ": Right" << std::endl;
+                std::cout << "Heading: " << printedHeading << std::endl;
 
                 txtFile.open(fileName, std::ofstream::app);
                 txtFile << "\n" << simTime << "," << robotLocation.x << "," << robotLocation.y << "," << robotLocation.heading << "," << printedHeading;
