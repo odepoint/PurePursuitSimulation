@@ -3,7 +3,7 @@ A simulated visualization of the **Pure Pursuit** path following algorithm I imp
 
 
 # General Recommendations
-As this is a simulation of Pure Pursuit, the same limitations apply. It's generally required to start the robot close to the first point, and for its heading to not be in the opposite direction (negative movements are not inherently supported, and a path would have to be flipped to drive in reverse; I did this for the competition, but it isn't part of the fundamental algorithm). Additionally, excessively tight turns and precise stops likely require per-path tuning of the lookahead distance and stopping point. My eventual plan is to allow these to be tuned in an easily understood UI, but you can simply compile the program having changed these settings for now.
+As this is a simulation of Pure Pursuit, the same limitations apply. It's generally required to start the robot close to the first point, and for its heading to not be in the opposite direction (negative movements are not inherently supported, and a path would have to be flipped to drive in reverse; I did this for the competition, but it isn't part of the fundamental algorithm). Additionally, excessively tight turns and precise stops likely require per-path tuning of the lookahead distance and stopping point. My plan is to allow these to be tuned in an easily understood UI, but you can simply compile the program having changed these settings for now.
 
 # Visualization
 After running the executable, a **csv file** looking like this will be created 
